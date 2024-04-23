@@ -5,16 +5,21 @@ import { FaPlus, FaFileExport, FaEdit, FaTrashAlt } from "react-icons/fa";
 import { Spinner } from "components";
 import { Layout } from "components/users";
 import { userService } from "services";
+import { BuildQueryParams } from "../../utils/function";
 
 export default Index;
 
 function Index() {
   const [users, setUsers] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [filter, setFilter] = useState({ page: 1, limit: 10 });
 
   useEffect(() => {
-    userService.getAll().then((x) => setUsers(x));
-  }, [searchQuery]);
+    userService.getAll(BuildQueryParams(filter)).then((x) => {
+      setUsers(x);
+      console.log(x);
+    });
+  }, [filter]);
 
   function deleteUser(id) {
     setUsers(
@@ -38,6 +43,12 @@ function Index() {
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
+          // how to event enter submit
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              setFilter({ ...filter, keyword: searchQuery });
+            }
+          }}
           placeholder="Tìm kiếm người dùng"
         />
         <Link href="/users/add" className="btn btn-sm btn-success">
@@ -63,7 +74,7 @@ function Index() {
         </thead>
         <tbody>
           {users &&
-            users.map((user, idx) => (
+            users?.rows?.map((user, idx) => (
               <tr key={user.id}>
                 <td>{idx + 1}</td>
                 <td>{user.firstName}</td>
@@ -90,7 +101,7 @@ function Index() {
               </td>
             </tr>
           )}
-          {users && !users.length && (
+          {users && !users?.rows.length && (
             <tr>
               <td colSpan="4" className="text-center">
                 <div className="p-2">No Users To Display</div>
