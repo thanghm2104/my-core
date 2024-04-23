@@ -13,7 +13,6 @@ function Index() {
   const [users, setUsers] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [filter, setFilter] = useState({ page: 1, limit: 10 });
-
   useEffect(() => {
     userService.getAll(BuildQueryParams(filter)).then((x) => {
       setUsers(x);
@@ -76,7 +75,7 @@ function Index() {
           {users &&
             users?.rows?.map((user, idx) => (
               <tr key={user.id}>
-                <td>{idx + 1}</td>
+                <td>{(filter.page - 1) * filter.limit + idx + 1}</td>
                 <td>{user.firstName}</td>
                 <td>{user.lastName}</td>
                 <td>{user.username}</td>
@@ -110,6 +109,20 @@ function Index() {
           )}
         </tbody>
       </table>
+      <select value={filter.limit} onChange={(e) => setFilter({ ...filter, limit: e.target.value })}>
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+        <option value="200">200</option>
+      </select>
+      <button onClick={() => setFilter({ ...filter, page: filter.page - 1 })} disabled={filter.page === 1}>
+        Previous
+      </button>
+      <span>Page {filter.page}</span>
+      <button onClick={() => setFilter({ ...filter, page: filter.page + 1 })} disabled={users && users.length === 0}>
+        Next
+      </button>
     </Layout>
   );
 }

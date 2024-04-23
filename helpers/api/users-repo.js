@@ -49,11 +49,10 @@ async function getAll(params) {
         ],
       }
     : {};
-
+  const pagination = offset && limit ? { offset: +offset, limit: +limit } : {};
   return await db.User.findAndCountAll({
     where: whereCondition,
-    offset: +offset,
-    limit: +limit,
+    ...pagination,
   });
 }
 

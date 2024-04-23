@@ -103,7 +103,7 @@ async function exportUsersToExcel() {
   // Fetch users from the API
   const users = await fetchWrapper.get(baseUrl);
   // Prepare data for the Excel file
-  const data = users.map((user) => ({
+  const data = users?.rows?.map((user) => ({
     Họ: user.firstName,
     Tên: user.lastName,
   }));
