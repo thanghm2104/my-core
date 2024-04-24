@@ -1,0 +1,26 @@
+{
+  "development": {
+    "host": "localhost",
+    "port": 3306,
+    "username": "admin",
+    "password": "Abc1234@",
+    "database": "idea",
+    "dialect": "mysql"
+  },
+  "test": {
+    "host": "localhost",
+    "port": 3306,
+    "username": "admin",
+    "password": "Abc1234@",
+    "database": "idea",
+    "dialect": "mysql"
+  },
+  "production": {
+    "host": "localhost",
+    "port": 3306,
+    "username": "admin",
+    "password": "Abc1234@",
+    "database": "idea",
+    "dialect": "mysql"
+  }
+}

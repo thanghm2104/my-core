@@ -16,7 +16,6 @@ function Index() {
   useEffect(() => {
     userService.getAll(BuildQueryParams(filter)).then((x) => {
       setUsers(x);
-      console.log(x);
     });
   }, [filter]);
 

@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+const path = require("path");
 const nextConfig = {
   reactStrictMode: true,
   serverRuntimeConfig: {
@@ -18,6 +19,10 @@ const nextConfig = {
         ? "http://localhost:3000/api" // development api
         : "http://localhost:3000/api", // production api
   },
+  config: path.resolve("next.config.js", "serverRuntimeConfig.dbConfig"),
+  "migrations-path": path.resolve("db", "migrations"),
+  "seeders-path": path.resolve("db", "seeders"),
+  "models-path": path.resolve("db", "models"),
 };
 
 module.exports = nextConfig;

@@ -105,8 +105,6 @@ FLUSH PRIVILEGES;
 EXIT;
 ```
 
-Bây giờ, bạn đã cài đặt MySQL trên Ubuntu và tạo cơ sở dữ liệu `example` với `username: admin` và `password: a12345`.
-
 Để chạy migrations và seeders trong dự án này, bạn cần sử dụng Sequelize CLI. Dưới đây là các bước bạn có thể thực hiện:
 
 1. Mở terminal của bạn.
