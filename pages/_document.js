@@ -18,7 +18,9 @@ function Document() {
         <div className="text-center mt-4">
           <p></p>
           <p>
-            <a>ThangHM</a>
+            <a>
+              <strong>T68 © 2024</strong>. Designed by <mark>Thangbeu.online</mark> Rights Reserved
+            </a>
           </p>
         </div>
       </body>

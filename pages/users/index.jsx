@@ -20,19 +20,23 @@ function Index() {
   }, [filter]);
 
   function deleteUser(id) {
-    setUsers(
-      users.map((x) => {
+    setUsers((userList) => {
+      userList?.rows?.map((x) => {
         if (x.id === id) {
           x.isDeleting = true;
         }
         return x;
-      })
-    );
+      });
+    });
     userService.delete(id).then(() => {
-      setUsers((users) => users.filter((x) => x.id !== id));
+      setFilter({ ...filter });
     });
   }
-
+  const handleGenerateRandomUsers = async () => {
+    userService.createRandomUsers().finally(() => {
+      setFilter({ ...filter });
+    });
+  };
   return (
     <Layout>
       <h1>Quản lý người dùng</h1>
@@ -41,7 +45,7 @@ function Index() {
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          // how to event enter submit
+          className="form-control form-control-sm w-50"
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               setFilter({ ...filter, keyword: searchQuery });
@@ -56,7 +60,7 @@ function Index() {
           <FaFileExport />
           Export to Excel
         </button>
-        <button className="btn btn-sm btn-success ml-2" onClick={() => userService.createRandomUsers()}>
+        <button className="btn btn-sm btn-success ml-2" onClick={handleGenerateRandomUsers}>
           <FaPlus /> Tạo random 100
         </button>
       </div>
@@ -99,7 +103,7 @@ function Index() {
               </td>
             </tr>
           )}
-          {users && !users?.rows.length && (
+          {users && !users?.rows?.length && (
             <tr>
               <td colSpan="4" className="text-center">
                 <div className="p-2">No Users To Display</div>
@@ -108,20 +112,35 @@ function Index() {
           )}
         </tbody>
       </table>
-      <select value={filter.limit} onChange={(e) => setFilter({ ...filter, limit: e.target.value })}>
-        <option value="5">5</option>
-        <option value="10">10</option>
-        <option value="50">50</option>
-        <option value="100">100</option>
-        <option value="200">200</option>
-      </select>
-      <button onClick={() => setFilter({ ...filter, page: filter.page - 1 })} disabled={filter.page === 1}>
-        Previous
-      </button>
-      <span>Page {filter.page}</span>
-      <button onClick={() => setFilter({ ...filter, page: filter.page + 1 })} disabled={users && users.length === 0}>
-        Next
-      </button>
+      <div className="d-flex gap-2 align-items-center">
+        <select
+          class="form-control form-control-sm"
+          style={{ width: "auto" }}
+          value={filter.limit}
+          onChange={(e) => setFilter({ ...filter, limit: e.target.value })}
+        >
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+          <option value="200">200</option>
+        </select>
+        <button
+          className="btn btn-primary btn-sm"
+          onClick={() => setFilter({ ...filter, page: filter.page - 1 })}
+          disabled={filter.page === 1}
+        >
+          Previous
+        </button>
+        <span>Page {filter.page}</span>
+        <button
+          className="btn btn-primary btn-sm"
+          onClick={() => setFilter({ ...filter, page: filter.page + 1 })}
+          disabled={users && users.length === 0}
+        >
+          Next
+        </button>
+      </div>
     </Layout>
   );
 }

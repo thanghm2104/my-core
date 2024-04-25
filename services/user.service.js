@@ -34,8 +34,10 @@ async function login(username, password) {
   localStorage.setItem("user", JSON.stringify(user));
 }
 function generateRandomUser() {
-  const firstName = Math.random().toString(36).substring(2, 15); // random string
-  const lastName = Math.random().toString(36).substring(2, 15); // random string
+  const firstNames = ["Nguyen", "Tran", "Le", "Pham", "Hoang", "Phan"];
+  const lastNames = ["Viet", "Dung", "Nam", "Thu", "Tien", "Trang"];
+  const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
+  const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
   const username = `${firstName}.${lastName}`; // username is a combination of firstName and lastName
   const password = Math.random().toString(36).substring(2, 15); // random string
 
