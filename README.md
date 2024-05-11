@@ -61,6 +61,11 @@ sudo apt-get update
 sudo apt-get install mysql-server
 ```
 
+```bash
+sudo service mysql start
+sudo service mysql stop
+```
+
 4. Sau khi cài đặt, chạy lệnh sau để bảo mật cài đặt MySQL:
 
 ```bash
