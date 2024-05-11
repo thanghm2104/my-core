@@ -6,7 +6,8 @@ import { Spinner } from "components";
 import { Layout } from "components/users";
 import { userService } from "services";
 import { BuildQueryParams } from "../../utils/function";
-
+import { Typography } from "antd";
+const { Title } = Typography;
 export default Index;
 
 function Index() {
@@ -39,7 +40,7 @@ function Index() {
   };
   return (
     <Layout>
-      <h1>Quản lý Vai trò</h1>
+      <Title level={2}>Quản lý Vai trò</Title>
       <div className=" d-flex gap-2 mb-2">
         <input
           type="text"
